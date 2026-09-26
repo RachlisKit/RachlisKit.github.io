@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Маяк — приглашение</title>
+<meta property="og:title" content="Тебя зовут к маяку">
+<meta property="og:description" content="Открой ссылку на iPhone с приложением Маяк — и увидишь стрелку над местом встречи через камеру.">
+<meta name="theme-color" content="#0b1020">
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100dvh; display: grid; place-items: center;
+    font-family: -apple-system, system-ui, "SF Pro Text", Inter, sans-serif;
+    background: radial-gradient(120% 90% at 50% 0%, #1b2a55 0%, #0b1020 60%, #05070f 100%);
+    color: #eef2ff; padding: 24px;
+  }
+  .card {
+    width: min(420px, 100%); text-align: center;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+    border-radius: 24px; padding: 36px 28px; backdrop-filter: blur(18px);
+    box-shadow: 0 30px 80px rgba(0,0,0,.45);
+  }
+  .arrow {
+    width: 84px; height: 84px; margin: 0 auto 20px; display: grid; place-items: center;
+    border-radius: 28px; background: linear-gradient(160deg, #ffb457, #ff7a1a);
+    box-shadow: 0 16px 40px rgba(255,122,26,.45);
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float { 50% { transform: translateY(-6px); } }
+  h1 { font-size: 26px; margin: 0 0 10px; letter-spacing: -.02em; }
+  p { color: #b9c2e6; line-height: 1.5; margin: 0 0 22px; font-size: 16px; }
+  .btn {
+    display: block; width: 100%; padding: 16px; border-radius: 16px; font-weight: 600;
+    text-decoration: none; font-size: 17px; margin-top: 10px; transition: transform .1s;
+  }
+  .btn:active { transform: scale(.98); }
+  .primary { background: #ff8a2a; color: #12080a; }
+  .secondary { background: rgba(255,255,255,.1); color: #eef2ff; border: 1px solid rgba(255,255,255,.14); }
+  .hint { font-size: 13px; color: #8d97bf; margin-top: 18px; }
+  code { font-family: ui-monospace, SF Mono, Menlo, monospace; background: rgba(255,255,255,.08); padding: 2px 6px; border-radius: 6px; }
+</style>
+</head>
+<body>
+  <main class="card" id="card">
+    <div class="arrow" aria-hidden="true">
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#12080a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V5"/><path d="M6 11l6-6 6 6"/></svg>
+    </div>
+    <h1>Тебя зовут к маяку</h1>
+    <p id="text">Открой эту ссылку на iPhone с приложением <b>Маяк</b> — и через камеру увидишь стрелку над местом встречи.</p>
+    <a class="btn primary" id="open" href="#" hidden>Открыть в приложении</a>
+    <a class="btn secondary" href="https://github.com/RachlisKit/ARachlis" target="_blank" rel="noopener">Как установить Маяк</a>
+    <div class="hint" id="hint"></div>
+  </main>
+<script>
+  // GitHub Pages отдаёт эту страницу для любого несуществующего пути,
+  // в том числе для /mayak/b/<токен>. Достаём токен и предлагаем открыть
+  // приложение по собственной схеме — на случай, если Universal Link не сработал
+  // (например, ссылку вставили в адресную строку руками).
+  var m = location.pathname.match(/^\/mayak\/b\/([A-Za-z0-9_-]{8,64})\/?$/);
+  if (m) {
+    var open = document.getElementById('open');
+    open.href = 'mayak://b/' + m[1];
+    open.hidden = false;
+    document.getElementById('hint').innerHTML = 'Код приглашения: <code>' + m[1] + '</code>';
+  } else {
+    document.getElementById('text').textContent = 'Такой страницы нет. Проверь ссылку, которую тебе прислали.';
+  }
+</script>
+</body>
+</html>

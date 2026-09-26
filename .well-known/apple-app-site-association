@@ -1,0 +1,12 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["K76VU5M873.com.kitrachlis.ARachlis"],
+        "components": [
+          { "/": "/mayak/b/*", "comment": "Приглашение к маяку: /mayak/b/<share_token>" }
+        ]
+      }
+    ]
+  }
+}
